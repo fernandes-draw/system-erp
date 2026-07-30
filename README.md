@@ -83,34 +83,78 @@ Certifique-se de ter instalado em sua máquina:
 
 Node.js (Versão LTS recomendada)
 
-Gerenciador de pacotes npm ou yarn
+Um terminal moderno como Git Bash (recomendado para Windows) ou terminal nativo (Linux/macOS).
 
-Passo a Passo para Execução
-Clonar o Repositório
+Passo a Passo para Recriação do Ambiente
+Se precisar reconstruir este projeto do zero, o fluxo exato executado foi:
+
+1. Inicialização do Projeto e Dependências Base
+Bash
+
+# Criar o projeto com Vite + React + TypeScript
+
+npm create vite@latest system-erp -- --template react-ts
+cd system-erp
+
+# Instalar dependências de produção do ERP
+
+npm install react-router-dom @tanstack/react-query zustand react-hook-form zod axios lucide-react
+2. Configuração do Tailwind CSS (v4)
+Diferente das versões anteriores, o Tailwind v4 funciona como um plugin nativo do Vite, eliminando a necessidade de arquivos tailwind.config.js.
 
 Bash
-git clone [https://github.com/SEU_USUARIO/system-erp.git](https://github.com/SEU_USUARIO/system-erp.git)
-cd system-erp
-Instalar Dependências
+
+# Instalar o Tailwind e o plugin oficial do Vite
+
+npm install tailwindcss @tailwindcss/vite
+No arquivo vite.config.ts, adicione o plugin:
+
+TypeScript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [
+
+    react(),
+    tailwindcss(),
+
+  ], 
+})
+No arquivo src/index.css, substitua o conteúdo por:
+
+CSS
+@import "tailwindcss"; 
+3. Criação Automatizada da Estrutura de Pastas (via Git Bash)
+Para criar a arquitetura modular baseada em features de uma só vez, utilize o terminal Git Bash:
+
+Bash
+mkdir -p src/{app/{router, providers, store}, assets, components/{ui, forms, layout, tables, modals, charts}, features/{auth/{api, hooks, pages, components}, dashboard, customers/{api, components, hooks, pages}}, hooks, lib, layouts, styles, types, utils, constants}
+🚀 Execução em Desenvolvimento
+Instalar Dependências (caso esteja clonando o repositório existente):
 
 Bash
 npm install
 Configurar Variáveis de Ambiente
-Crie um arquivo .env.local na raiz do projeto e configure a URL base da API:
+Crie um arquivo .env.local na raiz do projeto:
 
 Snippet de código
 VITE_API_URL=http://localhost:8000/api
-Executar em Ambiente de Desenvolvimento
+Rodar o Servidor Local
 
 Bash
 npm run dev
-O projeto estará disponível em http://localhost:5173.
+A aplicação estará disponível em http://localhost:5173.
 
-Gerar Build de Produção
-Para compilar e otimizar a aplicação para produção (arquivos minificados na pasta /dist):
+Build de Produção
 
 Bash
+npm run build
+Como salvar essa atualização no Git?
+Como acabamos de criar um padrão profissional de commits, vamos inaugurá-lo para salvar essa mudança no README.md:
 
-```
- npm run build
-```
+Bash
+git add README.md
+git commit -m "docs(readme): adicionar histórico de instalação do projeto e Tailwind v4"
+git push origin main
