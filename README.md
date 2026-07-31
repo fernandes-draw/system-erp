@@ -36,11 +36,11 @@ src/
 └── utils/                # Funções utilitárias e auxiliares puras
 ```
 
-> 🔒 O Princípio do Guardião (index.ts)  
+## 🔒 O Princípio do Guardião (index.ts)  
 
     Cada pasta dentro de features/ possui um arquivo index.ts. Ele atua como uma barreira de isolamento. Só exporte dali o que o restante da aplicação realmente precisa acessar (ex: componentes de páginas ou rotas do módulo). O restante deve permanecer estritamente privado ao diretório da feature.
 
-> 🛠️ Stack Tecnológica Coerente  
+## 🛠️ Stack Tecnológica Coerente  
 
 * Vite + React 19 - Build ultra-rápido e a última versão estável do ecossistema React.  
 * TypeScript - Tipagem estática estrita para evitar erros em runtime.  
@@ -51,7 +51,7 @@ src/
 * Axios - Cliente HTTP configurado com interceptors para tratamento de Token JWT e tratamento global de erros.  
 * React Router - Roteamento dinâmico baseado em componentes com suporte a layouts e rotas protegidas.  
 
-> 🚀 Guia de Desenvolvimento & Padrões  
+## 🚀 Guia de Desenvolvimento & Padrões  
 
 Ao criar novas funcionalidades, siga religiosamente estes guias para manter a consistência do código:  
 1. Criando uma Nova Feature  
@@ -77,7 +77,7 @@ fix(auth): corrige refresh token expirado
 
 docs(readme): atualiza guia de implantação
 
-📦 Implantação e Inicialização Local
+# 📦 Implantação e Inicialização Local
 Pré-requisitos
 Certifique-se de ter instalado em sua máquina:
 
@@ -91,12 +91,12 @@ Se precisar reconstruir este projeto do zero, o fluxo exato executado foi:
 1. Inicialização do Projeto e Dependências Base
 Bash
 
-# Criar o projeto com Vite + React + TypeScript
+## Criar o projeto com Vite + React + TypeScript
 
 npm create vite@latest system-erp -- --template react-ts
 cd system-erp
 
-# Instalar dependências de produção do ERP
+## Instalar dependências de produção do ERP
 
 npm install react-router-dom @tanstack/react-query zustand react-hook-form zod axios lucide-react
 2. Configuração do Tailwind CSS (v4)
@@ -104,7 +104,7 @@ Diferente das versões anteriores, o Tailwind v4 funciona como um plugin nativo 
 
 Bash
 
-# Instalar o Tailwind e o plugin oficial do Vite
+## Instalar o Tailwind e o plugin oficial do Vite
 
 npm install tailwindcss @tailwindcss/vite
 No arquivo vite.config.ts, adicione o plugin:
@@ -131,7 +131,8 @@ Para criar a arquitetura modular baseada em features de uma só vez, utilize o t
 
 Bash
 mkdir -p src/{app/{router, providers, store}, assets, components/{ui, forms, layout, tables, modals, charts}, features/{auth/{api, hooks, pages, components}, dashboard, customers/{api, components, hooks, pages}}, hooks, lib, layouts, styles, types, utils, constants}
-🚀 Execução em Desenvolvimento
+
+# 🚀 Execução em Desenvolvimento
 Instalar Dependências (caso esteja clonando o repositório existente):
 
 Bash
@@ -150,10 +151,11 @@ A aplicação estará disponível em http://localhost:5173.
 Build de Produção
 
 Bash
-npm run build
-Como salvar essa atualização no Git?
-Como acabamos de criar um padrão profissional de commits, vamos inaugurá-lo para salvar essa mudança no README.md:
-
+``` 
+  npm run build
+  Como salvar essa atualização no Git?
+  Como acabamos de criar um padrão profissional de commits, vamos inaugurá-lo para salvar essa mudança no README.md:
+```
 Bash
 git add README.md
 git commit -m "docs(readme): adicionar histórico de instalação do projeto e Tailwind v4"
