@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Sidebar } from '../components/layout/Sidebar';
-import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
+import { Header } from '../components/layout/Header';
+import { Sidebar } from '../components/layout/Sidebar';
 
 export function DashboardLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);

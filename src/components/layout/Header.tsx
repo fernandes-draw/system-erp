@@ -1,35 +1,111 @@
+
 interface HeaderProps {
   onToggleMenu: () => void;
   currentTheme: 'light' | 'dark';
   onToggleTheme: () => void;
+  currentPath?: string; // Para alimentar dinamicamente o Breadcrumb
 }
 
-export function Header({ onToggleMenu, currentTheme, onToggleTheme }: HeaderProps) {
+export function Header({
+  onToggleMenu,
+  currentTheme,
+  onToggleTheme,
+  currentPath = 'Home'
+}: HeaderProps) {
+
+  // Lembrete do sistema: A variável global do nome do sistema deve ser usada nas menções diretas.
+  const SYSTEM_NAME = "Usuário ERP";
+
   return (
     <header className="topbar">
+
+      {/* ── LADO ESQUERDO: CONTROLES E BREADCRUMB ── */}
       <div className="topbar-left">
-        <button onClick={onToggleMenu} className="sidebar-toggle">
-          <i className="fa fa-bars"></i>
+        <button
+          onClick={onToggleMenu}
+          className="sidebar-toggle"
+          type="button"
+          aria-label="Open menu"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
         </button>
+
+        <nav className="breadcrumb" aria-label="Breadcrumb">
+          <span className="current" aria-current="page">{currentPath}</span>
+        </nav>
       </div>
 
+      {/* ── CENTRO: CAIXA DE BUSCA (COMMAND PALETTE MOCK) ── */}
+      <div className="search-box">
+        <svg className="s-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+          <circle cx="7" cy="7" r="5" />
+          <path d="M11 11l3.5 3.5" />
+        </svg>
+        <input type="text" placeholder="Search pages or run a command…" aria-label="Open command palette" />
+        <kbd>⌘K</kbd>
+      </div>
+
+      {/* ── LADO DIREITO: AÇÕES E PERFIL ── */}
       <div className="topbar-right">
-        {/* Botão de Toggle do Tema */}
+
+        {/* Link de Documentação do Gentelella */}
+        <a className="tb-btn tb-docs" href="https://gentelella.colorlib.com/docs/" target="_blank" rel="noopener noreferrer" title="Documentation">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+            <path d="M4 4h11a4 4 0 014 4v13H8a4 4 0 01-4-4V4z" />
+            <path d="M4 17a4 4 0 014-4h11" />
+          </svg>
+          <span>Docs</span>
+        </a>
+
+        {/* Alternador de Tema Dinâmico (Sol/Lua SVGs) */}
         <button
           onClick={onToggleTheme}
           className="tb-btn theme-toggle"
-          title="Alternar Tema"
-          style={{ marginRight: '8px' }}
+          type="button"
+          title="Toggle theme"
+          aria-label="Toggle theme"
         >
           {currentTheme === 'light' ? (
-            <i className="fa fa-moon-o text-secondary"></i>
+            /* Ícone de Lua para sugerir mudar para o Dark Mode */
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
           ) : (
-            <i className="fa fa-sun-o" style={{ color: 'var(--yellow)' }}></i>
+            /* Ícone de Sol para sugerir mudar para o Light Mode */
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
           )}
         </button>
 
-        <span className="text-secondary" style={{ marginRight: '12px' }}>Usuário ERP</span>
-        <div className="tb-avatar">U</div>
+        {/* Notificações */}
+        <button className="tb-btn tb-notifications" type="button" title="Notifications" aria-label="Notifications">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+            <path d="M12 3a6 6 0 00-6 6c0 6-3 7-3 7h18s-3-1-3-7a6 6 0 00-6-6z" />
+            <path d="M10.5 21a1.5 1.5 0 003 0" />
+          </svg>
+          <span className="dot"></span>
+        </button>
+
+        {/* Mensagens */}
+        <button className="tb-btn tb-messages" type="button" title="Messages" aria-label="Messages">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="3" />
+            <path d="M2 7l10 6 10-6" />
+          </svg>
+        </button>
+
+        {/* Perfil do Usuário Integrado */}
+        <span className="text-secondary" style={{ marginRight: '4px', fontSize: '0.875rem' }}>
+          {SYSTEM_NAME}
+        </span>
+        <button className="tb-avatar" type="button" aria-label="Account menu">
+          {SYSTEM_NAME.charAt(0)}
+        </button>
+
       </div>
     </header>
   );

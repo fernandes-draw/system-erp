@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { DashboardLayout } from '../../layouts/DashboardLayout';
-import { DashboardPage } from '../../features/dashboard/DashboardPage';
+import DashboardPage from '../../features/dashboard/DashboardPage';
 
 const router = createBrowserRouter([
   {

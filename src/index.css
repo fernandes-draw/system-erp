@@ -1093,6 +1093,27 @@ a:hover {
     transition: box-shadow .15s
 }
 
+.card-header {
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    border-bottom: 1px solid var(--border-color-light);
+    min-height: 44px;
+    padding: 12px 16px;
+    display: flex
+}
+
+.card-body {
+    padding: 16px
+}
+
+.bar {
+    flex: 1;
+    border-radius: 999px 999px 0 0;
+    background: var(--blue);
+    transition: background .2s;
+}
+
 .card.is-refreshing {
     pointer-events: none;
     position: relative
@@ -10441,7 +10462,11 @@ table.dataTable .dt-empty {
     display: inline-flex
 }
 
-/* Quando a classe .sidebar-rail estiver ativa no elemento pai: */
+/* ==========================================================================
+   >>> PONTO DE MARCAÇÃO: INSERIR DAQUI ATÉ O FINAL DO ARQUIVO <<<
+   ========================================================================== */
+
+/* Quando a classe .sidebar-rail estiver activa no elemento pai: */
 .sidebar-rail {
     --sidebar-w: 64px; /* A largura da barra cai de 252px para 64px */
 }
@@ -10475,19 +10500,18 @@ table.dataTable .dt-empty {
 }
 
 /* ==========================================================================
-   1. MAPEAMENTO DO DARK MODE NAS VARIÁVEIS NATIVAS
+   1. MAPEAMENTO DO DARK MODE PADRÃO GENTELELLA V4 (CORES CORRIGIDAS)
    ========================================================================== */
 [data-theme="dark"] {
-    --body-bg: #111827;               /* Cor escura para o fundo geral da página */
-    --bg-surface: #1f2937;            /* Cor dos cards no modo escuro */
-    --text: #f3f4f6;                  /* Texto principal claro */
-    --text-secondary: #9ca3af;        /* Texto secundário */
-    --border-color: #374151;          /* Bordas mais escuras */
-    --sidebar-bg: #111827;            /* Sidebar acompanha o fundo escuro */
+    --body-bg: #0f1623;               /* O fundo escuro azulado da área central */
+    --bg-surface: #151f32;            /* O tom ligeiramente mais claro para os cards e topbar */
+    --text: #f3f4f6;                  
+    --text-secondary: #9ca3af;        
+    --border-color: #1f2d47;          
 }
 
 /* ==========================================================================
-   2. APLICAÇÃO GLOBAL DO BACKGROUND E TRANSIÇÃO
+   2. APLICAÇÃO GLOBAL E DO MIOLO DA PÁGINA
    ========================================================================== */
 .app-container {
     background-color: var(--body-bg);
@@ -10504,7 +10528,40 @@ table.dataTable .dt-empty {
 }
 
 /* ==========================================================================
-   3. ESTILIZAÇÃO E POSICIONAMENTO DO FOOTER
+   3. BLINDAGEM INDEPENDENTE DA SIDEBAR (TRAVADA SEMPRE ESCURA)
+   ========================================================================== */
+.sidebar {
+    background-color: #151f32 !important; /* Cor fixa da sidebar independente do tema */
+    border-right: 1px solid #1f2d47 !important;
+    color: #f3f4f6 !important;
+}
+
+/* Garante que os links da sidebar permaneçam visíveis no tema light */
+.sidebar .nav-link, 
+.sidebar .brand-name, 
+.sidebar .nav-label, 
+.sidebar .nav-text {
+    color: #9ca3af;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-item.active .nav-link {
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   4. COMPONENTES DINÂMICOS (APENAS TOPBAR E CARDS MUDAM)
+   ========================================================================== */
+.topbar, 
+.card {
+    background-color: var(--bg-surface) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* ==========================================================================
+   5. ESTILIZAÇÃO E POSICIONAMENTO DO FOOTER
    ========================================================================== */
 .footer {
     background-color: var(--body-bg);
