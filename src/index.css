@@ -62,6 +62,7 @@
     --font-weight-bold: 600
 }
 
+
 [data-theme=dark] {
     --body-bg: #0f1623;
     --bg-surface: #1a2332;
@@ -4893,8 +4894,8 @@ input[type=range].slider:focus-visible {
 .chart-path {
     fill: none;
     stroke-width: 1.5px;
-    stroke-linecap: round;
-    stroke-linejoin: round
+    strokeLinecap: round;
+    strokeLinejoin: round
 }
 
 .chart-fill {
@@ -5242,7 +5243,7 @@ input[type=range].slider:focus-visible {
     fill: none;
     stroke: var(--primary);
     stroke-width: 5px;
-    stroke-linecap: round;
+    strokeLinecap: round;
     stroke-dasharray: 213.6
 }
 
@@ -10236,8 +10237,8 @@ table.dataTable .dt-empty {
 
 .kanban-add {
     border-radius: var(--radius-sm);
-    width: 22px;
-    height: 22px;
+    /* width: 22px;
+    height: 22px; */
     font: inherit;
     color: var(--text-muted);
     cursor: pointer;
@@ -10248,7 +10249,8 @@ table.dataTable .dt-empty {
     margin-left: auto;
     font-size: 16px;
     line-height: 1;
-    display: flex
+    display: flex;
+    gap: 4px;
 }
 
 .kanban-add:hover {

@@ -1,4 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { KanbanModal } from './components/KanbanModal';
+import { KanbanForm } from './components/KanbanForm';
+
 
 interface KanbanCard {
   id: string;
@@ -17,6 +20,13 @@ interface Column {
 
 export default function KanbanPage() {
   const [filterText, setFilterText] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  function handleOpenModal() {
+    setModalIsOpen(!modalIsOpen);
+  }
+
+  console.info(modalIsOpen)
 
   const initialCards: KanbanCard[] = [
     { id: '1', title: 'Audit a11y on form pages', description: '', category: ['ENG', 'DOCS'], date: 'May 08', status: 'todo', assignee: ['ME', 'TH'] },
@@ -91,16 +101,22 @@ export default function KanbanPage() {
           return (
             <section key={column.id} className="kanban-column">
 
-              <header className="kanban-column-head">
-                <span className={`dot `} style={{ background: "var(--text-muted)" }}></span>
-                <span className="title">{column.title}</span>
-                <span className="count">{columnCards.length}</span>
-                <button className="kanban-add">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                  </svg>
-                </button>
+              <header className="kanban-column-head justify-between">
+                <div>
+                  <span className={`dot `} style={{ background: "var(--text-muted)" }}></span>
+                  <span className="title">{column.title}</span>
+                  <span className="count">{columnCards.length}</span>
+                </div>
+
+                <div>
+                  <button className="kanban-add" onClick={handleOpenModal}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Add card
+                  </button>
+                </div>
               </header>
 
               <div className="kanban-column-body">
@@ -180,20 +196,17 @@ export default function KanbanPage() {
                   </article>
                 ))}
               </div>
-
-                <button className="kanban-column-foot flex items-center">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px' }}>
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                  </svg>
-                  Add card
-                </button>
-
             </section>
           );
         })}
       </div>
 
+      {/* RENDERIZE O MODAL AQUI, NO FINAL DA PÁGINA */}
+      <KanbanModal isOpen={modalIsOpen} onClose={handleOpenModal} title='Adicionar Nova Tarefa'>
+        <div className="">
+          <KanbanForm />
+        </div>
+      </KanbanModal>
     </div>
   );
 }
