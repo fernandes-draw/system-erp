@@ -1,4 +1,5 @@
 import DashboardCard from './DashboardCard';
+import { OrdersTableSection } from './OrdersTableSection';
 
 // ── DEFINIÇÃO DOS ÍCONES (SVGs LIMPOS) ──
 const UsersIcon = () => (
@@ -53,7 +54,7 @@ export default function DashboardPage() {
       title: "Total Users",
       value: "2,500",
       icon: UsersIcon,
-      iconColor: "teal",
+      iconColor: "green",
       trendText: "Up",
       trendValue: "12%",
       trendType: "up",
@@ -165,6 +166,10 @@ export default function DashboardPage() {
             progressValue={card.progressValue}
           />
         ))}
+      </div>
+
+      <div>
+        <OrdersTableSection />
       </div>
 
     </div>

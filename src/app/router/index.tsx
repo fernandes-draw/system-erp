@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { DashboardLayout } from '../../layouts/DashboardLayout';
 import DashboardPage from '../../features/dashboard/DashboardPage';
+import KanbanPage from '../../features/kanban/KanbanPage'; // Importe a nova página
 
 const router = createBrowserRouter([
   {
@@ -8,12 +9,16 @@ const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
-        path: '', // Rota vazia significa que renderiza no '/'
+        path: '',
         element: <DashboardPage />,
       },
       {
         path: 'customers',
         element: <div>Página de Clientes (Em breve)</div>,
+      },
+      {
+        path: 'kanban', // Adiciona o caminho da URL /kanban
+        element: <KanbanPage />,
       },
     ],
   },

@@ -10489,27 +10489,6 @@ table.dataTable .dt-empty {
     padding: 8px;
 }
 
-/* Garante o comportamento vertical correto e o empurrão do rodapé */
-.main {
-    display: flex;
-    flex-direction: column;
-}
-
-.page-wrapper {
-    flex: 1; /* Faz o conteúdo ocupar todo o espaço útil restante */
-}
-
-/* ==========================================================================
-   1. MAPEAMENTO DO DARK MODE PADRÃO GENTELELLA V4 (CORES CORRIGIDAS)
-   ========================================================================== */
-[data-theme="dark"] {
-    --body-bg: #0f1623;               /* O fundo escuro azulado da área central */
-    --bg-surface: #151f32;            /* O tom ligeiramente mais claro para os cards e topbar */
-    --text: #f3f4f6;                  
-    --text-secondary: #9ca3af;        
-    --border-color: #1f2d47;          
-}
-
 /* ==========================================================================
    2. APLICAÇÃO GLOBAL E DO MIOLO DA PÁGINA
    ========================================================================== */
@@ -10518,68 +10497,4 @@ table.dataTable .dt-empty {
     color: var(--text);
     min-height: 100vh;
     transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-/* Garante que o miolo da página também mude de cor */
-.main {
-    background-color: var(--body-bg);
-    display: flex;
-    flex-direction: column;
-}
-
-/* ==========================================================================
-   3. BLINDAGEM INDEPENDENTE DA SIDEBAR (TRAVADA SEMPRE ESCURA)
-   ========================================================================== */
-.sidebar {
-    background-color: #151f32 !important; /* Cor fixa da sidebar independente do tema */
-    border-right: 1px solid #1f2d47 !important;
-    color: #f3f4f6 !important;
-}
-
-/* Garante que os links da sidebar permaneçam visíveis no tema light */
-.sidebar .nav-link, 
-.sidebar .brand-name, 
-.sidebar .nav-label, 
-.sidebar .nav-text {
-    color: #9ca3af;
-}
-
-.sidebar .nav-link:hover,
-.sidebar .nav-item.active .nav-link {
-    color: #ffffff;
-}
-
-/* ==========================================================================
-   4. COMPONENTES DINÂMICOS (APENAS TOPBAR E CARDS MUDAM)
-   ========================================================================== */
-.topbar, 
-.card {
-    background-color: var(--bg-surface) !important;
-    border-color: var(--border-color) !important;
-    color: var(--text);
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-/* ==========================================================================
-   5. ESTILIZAÇÃO E POSICIONAMENTO DO FOOTER
-   ========================================================================== */
-.footer {
-    background-color: var(--body-bg);
-    border-top: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.825rem;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.footer a {
-    color: var(--primary);
-    text-decoration: none;
-}
-
-.footer a:hover {
-    text-decoration: underline;
 }
