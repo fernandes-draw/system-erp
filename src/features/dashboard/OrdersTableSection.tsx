@@ -7,7 +7,7 @@ interface Order {
   qty: number;
   total: number;
   channel: string;
-  status: 'Paid' | 'Processing' | 'Pending' | 'Cancelled';
+  status: 'Pago' | 'Processando' | 'Pendente' | 'Cancelado';
   date: string;
 }
 
@@ -25,11 +25,11 @@ export function OrdersTableSection() {
 
   // Base completa de dados simulada do Back-end
   const fullMockData: Order[] = [
-    { id: '#7800', customer: 'Sven Kowalski', item: 'Merino base layer', qty: 3, total: 367, channel: 'Direct', status: 'Cancelled', date: 'Mar 2, 2026' },
-    { id: '#7801', customer: 'Oliver Kane', item: 'Mech keyboard', qty: 4, total: 474, channel: 'Partner', status: 'Processing', date: 'Apr 26, 2026' },
-    { id: '#7802', customer: 'Emily Wang', item: 'Linen shirt', qty: 1, total: 236, channel: 'Partner', status: 'Cancelled', date: 'Feb 14, 2026' },
-    { id: '#7803', customer: 'Fiona Reilly', item: 'Aurora hoodie', qty: 3, total: 374, channel: 'Email', status: 'Cancelled', date: 'Jan 26, 2026' },
-    { id: '#7804', customer: 'Yuki Tanaka', item: 'Linen shirt', qty: 2, total: 387, channel: 'Direct', status: 'Paid', date: 'Feb 1, 2026' },
+    { id: '#7800', customer: 'Sávio Kowalski', item: 'Camada base de merino', qty: 3, total: 367, channel: 'Direto', status: 'Cancelado', date: '2 de mar. de 2026' },
+    { id: '#7801', customer: 'Otávio Kane', item: 'Teclado mecânico', qty: 4, total: 474, channel: 'Parceiro', status: 'Processando', date: '26 de abr. de 2026' },
+    { id: '#7802', customer: 'Emília Wang', item: 'Camisa de linho', qty: 1, total: 236, channel: 'Parceiro', status: 'Cancelado', date: '14 de fev. de 2026' },
+    { id: '#7803', customer: 'Fernanda Reilly', item: 'Moleton Aurora', qty: 3, total: 374, channel: 'E-mail', status: 'Cancelado', date: '26 de jan. de 2026' },
+    { id: '#7804', customer: 'Yasmin Tanaka', item: 'Camisa de linho', qty: 2, total: 387, channel: 'Direto', status: 'Pago', date: '1 de fev. de 2026' },
   ];
 
   useEffect(() => {
@@ -99,10 +99,10 @@ export function OrdersTableSection() {
 
   const getStatusClass = (status: Order['status']) => {
     switch (status) {
-      case 'Paid': return 'status-paid';
-      case 'Processing': return 'status-processing';
-      case 'Pending': return 'status-pending';
-      case 'Cancelled': return 'status-cancelled';
+      case 'Pago': return 'status-paid';
+      case 'Processando': return 'status-processing';
+      case 'Pendente': return 'status-pending';
+      case 'Cancelado': return 'status-cancelled';
       default: return '';
     }
   };

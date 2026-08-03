@@ -14,7 +14,7 @@ export function Header({
 }: HeaderProps) {
 
   // Lembrete do sistema: A variável global do nome do sistema deve ser usada nas menções diretas.
-  const SYSTEM_NAME = "Usuário ERP";
+  const USER_NAME = "Everson";
 
   return (
     <header className="topbar">
@@ -43,21 +43,12 @@ export function Header({
           <circle cx="7" cy="7" r="5" />
           <path d="M11 11l3.5 3.5" />
         </svg>
-        <input type="text" placeholder="Search pages or run a command…" aria-label="Open command palette" />
+        <input type="text" placeholder="Busque pág ou rode um comando…" aria-label="Open command palette" />
         <kbd>⌘K</kbd>
       </div>
 
       {/* ── LADO DIREITO: AÇÕES E PERFIL ── */}
       <div className="topbar-right">
-
-        {/* Link de Documentação do Gentelella */}
-        <a className="tb-btn tb-docs" href="https://gentelella.colorlib.com/docs/" target="_blank" rel="noopener noreferrer" title="Documentation">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-            <path d="M4 4h11a4 4 0 014 4v13H8a4 4 0 01-4-4V4z" />
-            <path d="M4 17a4 4 0 014-4h11" />
-          </svg>
-          <span>Docs</span>
-        </a>
 
         {/* Alternador de Tema Dinâmico (Sol/Lua SVGs) */}
         <button
@@ -100,10 +91,10 @@ export function Header({
 
         {/* Perfil do Usuário Integrado */}
         <span className="text-secondary" style={{ marginRight: '4px', fontSize: '0.875rem' }}>
-          {SYSTEM_NAME}
+          {USER_NAME}
         </span>
         <button className="tb-avatar" type="button" aria-label="Account menu">
-          {SYSTEM_NAME.charAt(0)}
+          {USER_NAME.charAt(0)}
         </button>
 
       </div>

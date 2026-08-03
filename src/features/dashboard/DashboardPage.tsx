@@ -51,39 +51,39 @@ export default function DashboardPage() {
   const sparklineCards = [
     {
       id: 'c1',
-      title: "Total Users",
-      value: "2,500",
+      title: "Usuários Totais",
+      value: "2.500",
       icon: UsersIcon,
       iconColor: "green",
-      trendText: "Up",
+      trendText: "Subindo",
       trendValue: "12%",
       trendType: "up",
-      subtext: "342 new this week",
+      subtext: "342 novos nesta semana",
       sparklineData: [40, 55, 45, 60, 50, 70, 65, 80, 75, 90]
     },
     {
       id: 'c2',
-      title: "Avg Session",
-      value: "123.5",
+      title: "Sessão Média",
+      value: "123,5",
       valueSuffix: "min",
       icon: ClockIcon,
       iconColor: "blue",
-      trendText: "Up",
+      trendText: "Subindo",
       trendValue: "8%",
       trendType: "up",
-      subtext: "+14min from last week",
+      subtext: "+14min em relação à semana passada",
       sparklineData: [50, 40, 65, 55, 70, 60, 80, 75, 85, 90]
     },
     {
       id: 'c3',
-      title: "Orders",
-      value: "1,240",
+      title: "Pedidos",
+      value: "1.240",
       icon: OrdersIcon,
       iconColor: "yellow",
-      trendText: "Down",
+      trendText: "Descendo",
       trendValue: "3%",
       trendType: "down",
-      subtext: "78 shipped today",
+      subtext: "78 enviados hoje",
       sparklineData: [80, 70, 75, 60, 65, 50, 55, 45, 40, 35]
     }
   ] as const;
@@ -92,38 +92,38 @@ export default function DashboardPage() {
   const progressCards = [
     {
       id: 'c4',
-      title: "Revenue",
-      value: "$24,567",
+      title: "Receita",
+      value: "R$24.567",
       icon: RevenueIcon,
       iconColor: "green",
-      trendText: "Up",
+      trendText: "Subindo",
       trendValue: "18%",
       trendType: "up",
-      subtext: "$3,218 today",
+      subtext: "R$3.218 hoje",
       progressValue: 75
     },
     {
       id: 'c5',
-      title: "Conversions",
-      value: "2,315",
+      title: "Conversões",
+      value: "2.315",
       icon: ConversionsIcon,
       iconColor: "red",
-      trendText: "Up",
+      trendText: "Subindo",
       trendValue: "5%",
       trendType: "up",
-      subtext: "Rate: 4.2%",
+      subtext: "Taxa: 4,2%",
       progressValue: 42
     },
     {
       id: 'c6',
-      title: "Page Views",
-      value: "47,325",
+      title: "Visualizações de Página",
+      value: "47.325",
       icon: ViewsIcon,
       iconColor: "purple",
-      trendText: "Up",
+      trendText: "Subindo",
       trendValue: "22%",
       trendType: "up",
-      subtext: "6,854 unique visitors",
+      subtext: "6.854 visitantes únicos",
       progressValue: 68
     }
   ] as const;

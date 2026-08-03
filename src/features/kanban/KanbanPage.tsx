@@ -29,29 +29,29 @@ export default function KanbanPage() {
   console.info(modalIsOpen)
 
   const initialCards: KanbanCard[] = [
-    { id: '1', title: 'Audit a11y on form pages', description: '', category: ['ENG', 'DOCS'], date: 'May 08', status: 'todo', assignee: ['ME', 'TH'] },
-    { id: '2', title: 'Define onboarding email sequence', description: 'Three-message welcome flow with day 1, 3, 7 cadence', category: ['PM'], date: 'May 02', status: 'todo', assignee: ['EW'] },
-    { id: '3', title: 'Refresh icon system', description: 'Move from heroicons to a custom set with consistent stroke', category: ['DESIGN'], date: 'May 05', status: 'todo', assignee: ['SK'] },
-    { id: '4', title: 'Plan Q3 OKRs', description: 'Workshop with leads to define Q3 outcomes', category: ['PM'], date: 'May 15', status: 'todo', assignee: ['EW'] },
+    { id: '1', title: 'Auditar acessibilidade nas páginas de formulário', description: '', category: ['ENG', 'DOCS'], date: 'Mai 08', status: 'todo', assignee: ['ME', 'TH'] },
+    { id: '2', title: 'Definir sequência de e-mails de boas-vindas', description: 'Fluxo de três mensagens de boas-vindas com cadência do dia 1, 3 e 7', category: ['PM'], date: 'Mai 02', status: 'todo', assignee: ['EW'] },
+    { id: '3', title: 'Atualizar sistema de ícones', description: 'Migrar de heroicons para um conjunto personalizado com traço consistente', category: ['DESIGN'], date: 'Mai 05', status: 'todo', assignee: ['SK'] },
+    { id: '4', title: 'Planejar OKRs do Q3', description: 'Workshop com líderes para definir resultados do Q3', category: ['PM'], date: 'Mai 15', status: 'todo', assignee: ['EW'] },
 
-    { id: '5', title: 'Implement drag-and-drop kanban', description: 'Use HTML5 drag API, no library', category: ['ENG'], date: 'Apr 30', status: 'inprogress', assignee: ['MR'] },
-    { id: '6', title: 'Design product detail page', description: 'Gallery + variants + reviews + related', category: ['DESIGN'], date: 'Apr 30', status: 'inprogress', assignee: ['SK'] },
-    { id: '7', title: 'Write FAQ content', description: '15 articles across 5 categories', category: ['DOCS'], date: 'May 01', status: 'inprogress', assignee: ['EW'] },
+    { id: '5', title: 'Implementar quadro kanban com arrastar e soltar', description: 'Usar API de arrastar do HTML5, sem biblioteca', category: ['ENG'], date: 'Abr 30', status: 'inprogress', assignee: ['MR'] },
+    { id: '6', title: 'Projetar página de detalhes do produto', description: 'Galeria + variantes + avaliações + relacionados', category: ['DESIGN'], date: 'Abr 30', status: 'inprogress', assignee: ['SK'] },
+    { id: '7', title: 'Escrever conteúdo de FAQ', description: '15 artigos em 5 categorias', category: ['DOCS'], date: 'Mai 01', status: 'inprogress', assignee: ['EW'] },
 
-    { id: '8', title: 'Fix DataTables sort indicators', description: 'Replace empty span with chevron SVG', category: ['BUG', 'ENG'], date: 'Apr 29', status: 'review', assignee: ['MR'] },
-    { id: '9', title: 'Notifications dropdown', description: 'Bell button → panel with sample notifications', category: ['ENG'], date: 'Apr 29', status: 'review', assignee: ['TH'] },
+    { id: '8', title: 'Corrigir indicadores de ordenação do DataTables', description: 'Substituir span vazio por chevron SVG', category: ['BUG', 'ENG'], date: 'Abr 29', status: 'review', assignee: ['MR'] },
+    { id: '9', title: 'Menu suspenso de notificações', description: 'Botão de sino → painel com notificações de exemplo', category: ['ENG'], date: 'Abr 29', status: 'review', assignee: ['TH'] },
 
-    { id: '10', title: 'Build chat page', description: '', category: ['ENG'], date: 'Apr 28', status: 'done', assignee: ['MR'] },
-    { id: '11', title: 'Build settings page', description: '', category: ['ENG', 'DESIGN'], date: 'Apr 28', status: 'done', assignee: [] },
-    { id: '12', title: 'Migrate to Vite 8', description: '', category: ['ENG'], date: 'Apr 25', status: 'done', assignee: [] },
-    { id: '13', title: 'Add dark mode', description: 'Pre-paint script, token mappings, ECharts theme observer', category: ['ENG', 'DESIGN'], date: 'Apr 25', status: 'done', assignee: ['MR'] }
+    { id: '10', title: 'Construir página de chat', description: '', category: ['ENG'], date: 'Abr 28', status: 'done', assignee: ['MR'] },
+    { id: '11', title: 'Construir página de configurações', description: '', category: ['ENG', 'DESIGN'], date: 'Abr 28', status: 'done', assignee: [] },
+    { id: '12', title: 'Migrar para Vite 8', description: '', category: ['ENG'], date: 'Abr 25', status: 'done', assignee: [] },
+    { id: '13', title: 'Adicionar modo escuro', description: 'Script de pré-renderização, mapeamentos de tokens e observador de tema do ECharts', category: ['ENG', 'DESIGN'], date: 'Abr 25', status: 'done', assignee: ['MR'] }
   ];
 
   const columns: Column[] = [
-    { id: 'todo', title: 'To do' },
-    { id: 'inprogress', title: 'In progress' },
-    { id: 'review', title: 'Review' },
-    { id: 'done', title: 'Done' },
+    { id: 'todo', title: 'A fazer' },
+    { id: 'inprogress', title: 'Em andamento' },
+    { id: 'review', title: 'Revisão' },
+    { id: 'done', title: 'Concluído' },
   ];
 
   const filteredCards = useMemo(() => {
@@ -81,8 +81,8 @@ export default function KanbanPage() {
               <input
                 type="text"
                 id="kanban-filter"
-                placeholder="Filter cards…"
-                aria-label="Filter cards"
+                placeholder="Filtrar cartões…"
+                aria-label="Filtrar cartões"
                 value={filterText}
                 onChange={(e) => setFilterText(e.target.value)}
               />

@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom'; // Importa a tag de navegação oficial do router
 import { SYSTEM_NAME } from '../../config/constants'; // Consome o nome global da aplicação
 
@@ -43,7 +42,11 @@ export function Sidebar({ isCollapsed }: SidebarProps) {
 
           {/* Novo Link do Kanban integrado ao Router */}
           <NavLink to="/kanban" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-            <i className="fa fa-columns icon"></i>
+            <svg className="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <rect x="3" y="3" width="6" height="14" rx="1.5" />
+              <rect x="11" y="3" width="6" height="9" rx="1.5" />
+              <rect x="19" y="3" width="2" height="6" rx="0.5" />
+            </svg>
             <span className="nav-text">Kanban</span>
           </NavLink>
 

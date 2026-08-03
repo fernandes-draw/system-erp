@@ -1,8 +1,10 @@
+import { SYSTEM_NAME } from "../../config/constants";
+
 export function Footer() {
   return (
     <footer className="footer">
       <div>
-        <span>SystemERP © 2026 - Template baseado em Gentelella v4</span>
+        <span>{SYSTEM_NAME} © 2026 - Developed by Everson Fernandes</span>
       </div>
       <div>
         {/* Espaço reservado para algum link extra, caso queira, ou pode deixar vazio */}
