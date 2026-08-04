@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { KanbanModal } from './components/KanbanModal';
 import { KanbanForm } from './components/KanbanForm';
+import { KanbanModal } from './components/KanbanModal';
 
 
 interface KanbanCard {
@@ -62,8 +62,7 @@ export default function KanbanPage() {
   }, [filterText]);
 
   return (
-    <div className="page-wrapper kanban-page">
-
+    <>
       {/* Cabeçalho */}
       <div className="page-header">
         <div className="page-header-row">
@@ -207,6 +206,6 @@ export default function KanbanPage() {
           <KanbanForm />
         </div>
       </KanbanModal>
-    </div>
+    </>
   );
 }
