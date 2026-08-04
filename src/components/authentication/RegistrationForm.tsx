@@ -1,0 +1,115 @@
+import React, { useState } from "react";
+import type { AxiosError } from "axios";
+import { useUserActions } from "../../hooks/user.actions";
+import type { ApiErrorResponse, RegisterPayload } from "../../types/auth";
+
+export default function RegistrationForm() {
+  const [error, setError] = useState<string | null>(null);
+  const userActions = useUserActions();
+
+  const [form, setForm] = useState<RegisterPayload>({
+    username: "",
+    password: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+  });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError(null);
+
+    try {
+      await userActions.register(form);
+    } catch (err) {
+      const axiosError = err as AxiosError<ApiErrorResponse>;
+      setError(
+        axiosError.response?.data?.detail || "Ocorreu um erro durante o registro."
+      );
+    }
+  };
+
+  return (
+    <form id="registration-form" className="space-y-4" onSubmit={handleSubmit}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">Nome</label>
+          <input
+            value={form.first_name}
+            onChange={(e) => setForm({ ...form, first_name: e.target.value })}
+            required
+            type="text"
+            placeholder="Digite seu nome"
+            className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">Sobrenome</label>
+          <input
+            value={form.last_name}
+            onChange={(e) => setForm({ ...form, last_name: e.target.value })}
+            required
+            type="text"
+            placeholder="Digite seu sobrenome"
+            className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-slate-700 mb-1">
+          Nome de Usuário (Username)
+        </label>
+        <input
+          value={form.username}
+          onChange={(e) => setForm({ ...form, username: e.target.value })}
+          required
+          type="text"
+          placeholder="Escolha um nome de usuário"
+          className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-slate-700 mb-1">
+          Endereço de E-mail
+        </label>
+        <input
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          required
+          type="email"
+          placeholder="Digite seu e-mail"
+          className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-slate-700 mb-1">Senha</label>
+        <input
+          value={form.password}
+          minLength={8}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          required
+          type="password"
+          placeholder="Digite sua senha"
+          className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
+        />
+      </div>
+
+      {error && (
+        <div className="p-3 bg-red-50 text-red-600 rounded-md text-sm border border-red-200">
+          {error}
+        </div>
+      )}
+
+      <button
+        type="submit"
+        className="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 text-sm"
+      >
+        Cadastrar
+      </button>
+    </form>
+  );
+}

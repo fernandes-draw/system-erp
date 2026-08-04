@@ -54,18 +54,20 @@ export function Sidebar({ isCollapsed }: SidebarProps) {
       </div>
 
       <div className="sidebar-footer">
-        <div className="sidebar-user">
-          <div className="avatar">
-            {SYSTEM_NAME.charAt(0)}
-            <span className="online"></span>
-          </div>
-          <div className="sidebar-user-info">
-            <div className="name">
-              {SYSTEM_NAME}
+        <NavLink to="/login">
+          <div className="sidebar-user">
+            <div className="avatar">
+              {SYSTEM_NAME.charAt(0)}
+              <span className="online"></span>
             </div>
-            <div className="role">Admin</div>
+            <div className="sidebar-user-info">
+              <div className="name">
+                {SYSTEM_NAME}
+              </div>
+              <div className="role">Admin</div>
+            </div>
           </div>
-        </div>
+        </NavLink>
       </div>
     </aside>
   );

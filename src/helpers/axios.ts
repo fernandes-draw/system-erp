@@ -1,6 +1,7 @@
-// src/helpers/axios.js
 import axios from "axios";
-import { getAccessToken, getRefreshToken } from "../hooks/user.actions";
+import type { InternalAxiosRequestConfig } from "axios";
+import { getAccessToken, getRefreshToken, setUserData } from "../hooks/user.actions";
+import type { AuthState } from "../types/auth";
 
 const axiosService = axios.create({
   baseURL: "http://localhost:8000/api",
@@ -9,19 +10,17 @@ const axiosService = axios.create({
   },
 });
 
-// Interceptor de Requisição: injeta o token de acesso
-axiosService.interceptors.request.use(async (config) => {
+axiosService.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = getAccessToken();
-  if (token) {
+  if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-// Interceptor de Resposta: lida com o refresh automático caso o token expire (401)
 axiosService.interceptors.response.use(
   (res) => res,
-  (err) => {
+  async (err) => {
     if (err.response?.status === 401 && err.config && !err.config._retry) {
       err.config._retry = true;
       const refreshToken = getRefreshToken();
@@ -32,24 +31,19 @@ axiosService.interceptors.response.use(
         return Promise.reject(err);
       }
 
-      return axios
-        .post("/auth/refresh/", { refresh: refreshToken }, {
-          baseURL: "http://localhost:8000/api",
-        })
-        .then((resp) => {
-          const { access, refresh, user } = resp.data;
-
-          err.config.headers["Authorization"] = "Bearer " + access;
-
-          localStorage.setItem("auth", JSON.stringify({ access, refresh, user }));
-
-          return axiosService(err.config);
-        })
-        .catch((refreshErr) => {
-          localStorage.removeItem("auth");
-          window.location.href = "/login/";
-          return Promise.reject(refreshErr);
-        });
+      try {
+        const resp = await axios.post<AuthState>(
+          "http://localhost:8000/api/auth/refresh/",
+          { refresh: refreshToken }
+        );
+        setUserData(resp.data);
+        err.config.headers.Authorization = `Bearer ${resp.data.access}`;
+        return axiosService(err.config);
+      } catch (refreshErr) {
+        localStorage.removeItem("auth");
+        window.location.href = "/login/";
+        return Promise.reject(refreshErr);
+      }
     }
     return Promise.reject(err);
   }

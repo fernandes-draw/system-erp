@@ -96,6 +96,16 @@ export function Header({
         <button className="tb-avatar" type="button" aria-label="Account menu">
           {USER_NAME.charAt(0)}
         </button>
+        <div className="menu-popover" role="menu" style={{ top: "48px", left: "942px" }}>
+          <button type="button" className="menu-item" role="menuitem">Profile</button>
+          <button type="button" className="menu-item" role="menuitem">Account settings</button>
+          <button type="button" className="menu-item" role="menuitem">Theme generator</button>
+          <button type="button" className="menu-item" role="menuitem">Keyboard shortcuts</button>
+          <div className="menu-separator"></div>
+          <button type="button" className="menu-item" role="menuitem">Help &amp; support</button>
+          <button type="button" className="menu-item" role="menuitem">Lock screen</button>
+          <button type="button" className="menu-item" role="menuitem">Sign out</button>
+        </div>
 
       </div>
     </header>
