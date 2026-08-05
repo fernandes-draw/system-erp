@@ -1,11 +1,20 @@
-import React, { useState } from "react";
 import type { AxiosError } from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SYSTEM_NAME } from "../../config/constants";
 import { useUserActions } from "../../hooks/user.actions";
 import type { ApiErrorResponse, LoginPayload } from "../../types/auth";
+
+// Credenciais temporárias para desenvolvimento sem a API Django
+const MOCK_CREDENTIALS = {
+  email: "admin@admin.com",
+  password: "password123",
+};
 
 export default function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const userActions = useUserActions();
+  const navigate = useNavigate();
 
   const [form, setForm] = useState<LoginPayload>({
     email: "",
@@ -16,6 +25,21 @@ export default function LoginForm() {
     event.preventDefault();
     setError(null);
 
+    // 1. Verificação de Mock (Bypass para testes locais)
+    if (
+      form.email === MOCK_CREDENTIALS.email &&
+      form.password === MOCK_CREDENTIALS.password
+    ) {
+      // Simula a persistência do auth state localmente
+      localStorage.setItem("auth_token", "fake-jwt-token-for-dev");
+      localStorage.setItem("user", JSON.stringify({ email: form.email, name: "Admin Teste" }));
+      
+      // Redireciona diretamente para o Dashboard
+      navigate("/");
+      return;
+    }
+
+    // 2. Chamada real à API Django (Fallback caso não use as credenciais de mock)
     try {
       await userActions.login(form);
     } catch (err) {
@@ -27,46 +51,116 @@ export default function LoginForm() {
   };
 
   return (
-    <form id="login-form" className="space-y-4" onSubmit={handleSubmit}>
-      <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">
-          Endereço de E-mail
-        </label>
-        <input
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          required
-          type="email"
-          placeholder="Digite seu e-mail"
-          className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">Senha</label>
-        <input
-          value={form.password}
-          minLength={8}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-          required
-          type="password"
-          placeholder="Digite sua senha"
-          className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm"
-        />
-      </div>
-
-      {error && (
-        <div className="p-3 bg-red-50 text-red-600 rounded-md text-sm border border-red-200">
-          {error}
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-brand">
+          <div className="brand-icon">{SYSTEM_NAME.charAt(0)}</div>
+          <div className="brand-name">
+            {SYSTEM_NAME}{" "}
+            <small
+              style={{
+                fontWeight: "400",
+                color: "var(--text-muted)",
+                fontSize: "13px",
+                marginLeft: "2px",
+              }}
+            >
+              v4
+            </small>
+          </div>
         </div>
-      )}
 
-      <button
-        type="submit"
-        className="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 text-sm mt-2"
-      >
-        Entrar
-      </button>
-    </form>
+        <div className="auth-title">Bem vindo de volta!</div>
+        <div className="auth-subtitle">Faça login para continuar no seu painel.</div>
+
+        {/* Dica visual com as credenciais de mock */}
+        <div 
+          style={{
+            padding: "8px 12px",
+            marginBottom: "16px",
+            backgroundColor: "rgba(255, 255, 255, 0.05)",
+            border: "1px dashed var(--border-color, #374151)",
+            borderRadius: "6px",
+            fontSize: "12px",
+            color: "var(--text-muted, #9ca3af)",
+          }}
+        >
+          🔑 <strong>Mock de testes:</strong><br />
+          E-mail: <code>admin@admin.com</code><br />
+          Senha: <code>password123</code>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Endereço de E-mail</label>
+            <div className="input-group">
+              <svg
+                className="input-icon"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <rect x="2" y="3" width="12" height="10" rx="1.5"></rect>
+                <path d="M2 5l6 4 6-4"></path>
+              </svg>
+              <input
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                required
+                type="email"
+                className="form-control"
+                placeholder="Digite seu e-mail"
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Senha</label>
+            <div className="input-group">
+              <svg
+                className="input-icon"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <rect x="3" y="7" width="10" height="7" rx="1.5"></rect>
+                <path d="M5 7V5a3 3 0 016 0v2"></path>
+              </svg>
+              <input
+                value={form.password}
+                minLength={8}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                type="password"
+                className="form-control"
+                placeholder="Digite sua senha"
+                required
+              />
+            </div>
+          </div>
+
+          {error && (
+            <div className="p-3 bg-red-50 text-red-600 rounded-md text-sm border border-red-200 mb-3">
+              {error}
+            </div>
+          )}
+
+          <div className="auth-actions">
+            <label className="form-check">
+              <input type="checkbox" defaultChecked readOnly />
+              Lembrar-me
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary justify-center w-full"
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }

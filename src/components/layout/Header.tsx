@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
+import { USER_NAME } from "../../config/constants";
+import { useEffect, useRef, useState } from "react";
 
 interface HeaderProps {
   onToggleMenu: () => void;
   currentTheme: 'light' | 'dark';
   onToggleTheme: () => void;
-  currentPath?: string; // Para alimentar dinamicamente o Breadcrumb
+  currentPath?: string;
 }
 
 export function Header({
@@ -13,8 +16,23 @@ export function Header({
   currentPath = 'Home'
 }: HeaderProps) {
 
-  // Lembrete do sistema: A variável global do nome do sistema deve ser usada nas menções diretas.
-  const USER_NAME = "Everson";
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const menuRef = useRef<HTMLDivElement | null>(null)
+
+  const toggleMenu = () => setIsOpen((prev) => !prev)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   return (
     <header className="topbar">
@@ -93,20 +111,25 @@ export function Header({
         <span className="text-secondary" style={{ marginRight: '4px', fontSize: '0.875rem' }}>
           {USER_NAME}
         </span>
-        <button className="tb-avatar" type="button" aria-label="Account menu">
-          {USER_NAME.charAt(0)}
-        </button>
-        <div className="menu-popover" role="menu" style={{ top: "48px", left: "942px" }}>
-          <button type="button" className="menu-item" role="menuitem">Profile</button>
-          <button type="button" className="menu-item" role="menuitem">Account settings</button>
-          <button type="button" className="menu-item" role="menuitem">Theme generator</button>
-          <button type="button" className="menu-item" role="menuitem">Keyboard shortcuts</button>
-          <div className="menu-separator"></div>
-          <button type="button" className="menu-item" role="menuitem">Help &amp; support</button>
-          <button type="button" className="menu-item" role="menuitem">Lock screen</button>
-          <button type="button" className="menu-item" role="menuitem">Sign out</button>
+        <div className="relative inline-block" ref={menuRef}>
+          <button className="tb-avatar" type="button" aria-label="Account menu" onClick={toggleMenu}>
+            {USER_NAME.charAt(0)}
+          </button>
+          {isOpen && (
+            <div className="menu-popover absolute right-10 mt-2 w-48" role="menu" style={{ top: "48px", left: "auto" }}>
+              <button type="button" className="menu-item" role="menuitem">Profile</button>
+              <button type="button" className="menu-item" role="menuitem">Account settings</button>
+              <button type="button" className="menu-item" role="menuitem">Theme generator</button>
+              <button type="button" className="menu-item" role="menuitem">Keyboard shortcuts</button>
+              <div className="menu-separator"></div>
+              <button type="button" className="menu-item" role="menuitem">Help &amp; support</button>
+              <button type="button" className="menu-item" role="menuitem">Lock screen</button>
+              <Link to="/login">
+                <button type="button" className="menu-item" role="menuitem" onClick={toggleMenu}>Sign out</button>
+              </Link>
+            </div>
+          )}
         </div>
-
       </div>
     </header>
   );

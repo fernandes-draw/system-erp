@@ -3,18 +3,27 @@ import { Outlet } from 'react-router-dom';
 import { Footer } from '../components/layout/Footer';
 import { Header } from '../components/layout/Header';
 import { Sidebar } from '../components/layout/Sidebar';
+import { useTheme } from '../hooks/useTheme';
 
 export function DashboardLayout() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  // Inicializa o estado lendo do localStorage
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
+    const saved = localStorage.getItem('sidebar_collapsed');
+    return saved ? JSON.parse(saved) : false;
+  });
 
-  // Alterna o tema entre light e dark
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  const { theme, toggleTheme } = useTheme();
+
+  // Atualiza a preferência no localStorage
+  const handleToggleSidebar = () => {
+    setIsCollapsed((prev) => {
+      const nextState = !prev;
+      localStorage.setItem('sidebar_collapsed', JSON.stringify(nextState));
+      return nextState;
+    });
   };
 
   return (
-    // Injetamos o data-theme diretamente no elemento container para o CSS aplicar as variáveis corretas
     <div
       className={`app-container ${isCollapsed ? 'sidebar-rail' : ''}`}
       data-theme={theme}
@@ -23,9 +32,8 @@ export function DashboardLayout() {
       <Sidebar isCollapsed={isCollapsed} />
 
       <div className="main" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-        {/* Passamos o tema atual e a função de alternar para o Header */}
         <Header
-          onToggleMenu={() => setIsCollapsed(!isCollapsed)}
+          onToggleMenu={handleToggleSidebar}
           currentTheme={theme}
           onToggleTheme={toggleTheme}
         />

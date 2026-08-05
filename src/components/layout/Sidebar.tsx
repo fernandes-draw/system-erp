@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'; // Importa a tag de navegação oficial do router
-import { SYSTEM_NAME } from '../../config/constants'; // Consome o nome global da aplicação
+import { SYSTEM_NAME, USER_NAME } from '../../config/constants'; // Consome o nome global da aplicação
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -7,7 +7,7 @@ interface SidebarProps {
 
 export function Sidebar({ isCollapsed }: SidebarProps) {
   return (
-    <aside className={`sidebar ${isCollapsed ? 'sidebar' : ''}`}>
+    <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-brand">
         <span className="brand-icon">🐾</span>
         {/* Usando o nome global do sistema */}
@@ -54,20 +54,19 @@ export function Sidebar({ isCollapsed }: SidebarProps) {
       </div>
 
       <div className="sidebar-footer">
-        <NavLink to="/login">
-          <div className="sidebar-user">
-            <div className="avatar">
-              {SYSTEM_NAME.charAt(0)}
-              <span className="online"></span>
-            </div>
+        <div className="sidebar-user">
+          <div className="avatar">
+            {USER_NAME.charAt(0)}
+          </div>
+          {!isCollapsed && (
             <div className="sidebar-user-info">
               <div className="name">
-                {SYSTEM_NAME}
+                {USER_NAME}
               </div>
               <div className="role">Admin</div>
             </div>
-          </div>
-        </NavLink>
+          )}
+        </div>
       </div>
     </aside>
   );
