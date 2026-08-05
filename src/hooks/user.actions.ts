@@ -31,6 +31,28 @@ export function useUserActions() {
   const navigate = useNavigate();
 
   const login = async (data: LoginPayload): Promise<void> => {
+    // 1. VERIFICAÇÃO DE MOCK (TESTE LOCAL SEM API DJANGO)
+    if (data.email === "admin@admin.com" && data.password === "password123") {
+      const mockUser: User = {
+        id: 1,
+        email: data.email,
+        username: "admin",
+        first_name: "Admin",
+        last_name: "Teste",
+      };
+
+      const mockAuthData: AuthState = {
+        access: "fake-jwt-access-token",
+        refresh: "fake-jwt-refresh-token",
+        user: mockUser,
+      };
+
+      setUserData(mockAuthData);
+      navigate("/");
+      return;
+    }
+
+    // 2. CHAMADA REAL À API DJANGO
     const res = await axiosService.post<AuthState>("/auth/login/", data);
     setUserData(res.data);
     navigate("/");

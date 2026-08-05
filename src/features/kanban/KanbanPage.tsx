@@ -86,8 +86,8 @@ export default function KanbanPage() {
                 onChange={(e) => setFilterText(e.target.value)}
               />
             </div>
-            <button className="btn btn-outline">Filters</button>
-            <button className="btn btn-primary" id="kanban-add-btn">+ New card</button>
+            <button className="btn btn-outline">Filtros</button>
+            <button className="btn btn-primary" id="kanban-add-btn">+ Novo Cartão</button>
           </div>
         </div>
       </div>

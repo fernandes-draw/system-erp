@@ -136,16 +136,6 @@ export default function DashboardPage() {
             <div className="page-pretitle">Visão Geral</div>
             <h1 className="page-title">Painel de Controle</h1>
           </div>
-          <div className="page-actions">
-            <button className="btn btn-outline">
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v12M2 8h12" /></svg>
-              New view
-            </button>
-            <button className="btn btn-primary">
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h8M8 4v8" /></svg>
-              Create report
-            </button>
-          </div>
         </div>
       </div>
 

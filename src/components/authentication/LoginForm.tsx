@@ -1,20 +1,12 @@
 import type { AxiosError } from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { SYSTEM_NAME } from "../../config/constants";
 import { useUserActions } from "../../hooks/user.actions";
 import type { ApiErrorResponse, LoginPayload } from "../../types/auth";
 
-// Credenciais temporárias para desenvolvimento sem a API Django
-const MOCK_CREDENTIALS = {
-  email: "admin@admin.com",
-  password: "password123",
-};
-
 export default function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const userActions = useUserActions();
-  const navigate = useNavigate();
 
   const [form, setForm] = useState<LoginPayload>({
     email: "",
@@ -25,21 +17,6 @@ export default function LoginForm() {
     event.preventDefault();
     setError(null);
 
-    // 1. Verificação de Mock (Bypass para testes locais)
-    if (
-      form.email === MOCK_CREDENTIALS.email &&
-      form.password === MOCK_CREDENTIALS.password
-    ) {
-      // Simula a persistência do auth state localmente
-      localStorage.setItem("auth_token", "fake-jwt-token-for-dev");
-      localStorage.setItem("user", JSON.stringify({ email: form.email, name: "Admin Teste" }));
-      
-      // Redireciona diretamente para o Dashboard
-      navigate("/");
-      return;
-    }
-
-    // 2. Chamada real à API Django (Fallback caso não use as credenciais de mock)
     try {
       await userActions.login(form);
     } catch (err) {
@@ -71,10 +48,11 @@ export default function LoginForm() {
         </div>
 
         <div className="auth-title">Bem vindo de volta!</div>
-        <div className="auth-subtitle">Faça login para continuar no seu painel.</div>
+        <div className="auth-subtitle">
+          Faça login para continuar no seu painel.
+        </div>
 
-        {/* Dica visual com as credenciais de mock */}
-        <div 
+        <div
           style={{
             padding: "8px 12px",
             marginBottom: "16px",
@@ -85,8 +63,10 @@ export default function LoginForm() {
             color: "var(--text-muted, #9ca3af)",
           }}
         >
-          🔑 <strong>Mock de testes:</strong><br />
-          E-mail: <code>admin@admin.com</code><br />
+          🔑 <strong>Mock de testes:</strong>
+          <br />
+          E-mail: <code>admin@admin.com</code>
+          <br />
           Senha: <code>password123</code>
         </div>
 
@@ -131,7 +111,9 @@ export default function LoginForm() {
               <input
                 value={form.password}
                 minLength={8}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, password: e.target.value })
+                }
                 type="password"
                 className="form-control"
                 placeholder="Digite sua senha"
